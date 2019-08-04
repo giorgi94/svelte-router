@@ -1,0 +1,22 @@
+{
+    "name": "svelte-router",
+    "version": "0.1.0",
+    "description": "A Svelte named routing library",
+    "main": "src/index.js",
+    "svelte": "src/index.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/giorgi94/svelte-router.git"
+    },
+    "keywords": [
+        "svelte",
+        "router",
+        "svelte-rotuer",
+        "named router"
+    ],
+    "author": "giorgik1994@gmail.com",
+    "license": "MIT",
+    "peerDependencies": {
+        "svelte": "3.x"
+    }
+}
