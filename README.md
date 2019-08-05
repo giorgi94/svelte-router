@@ -1,6 +1,9 @@
 # Svelte Router
 
-Currently not ready for production.
+#### Currently not ready for production.
+
+This project was inspired by [svelte-routing](https://github.com/EmilTholin/svelte-routing). It is written to work like `vue-router`, by predefining routes and passing it to router. Components are written so that it supports lazy-loading, routes need to be named and provide some helpful functionalities.
+
 
 ## Usage
 
@@ -19,7 +22,7 @@ export const routes = [{
         component: HomePage
     },
     {
-        resolve: () => "/",
+        resolve: ({ alias }) => `/category/${alias}/`,
         rule: new RegExp("^/category/(?<alias>[\\w-]+)/$", "u"),
         name: "category",
         component: CategoryPage
