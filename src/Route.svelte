@@ -1,11 +1,11 @@
 <script>
     import { getContext, onDestroy } from "svelte";
-    import { ROUTES, LOCATION } from "./contexts.js";
+    import { ROUTER, LOCATION } from "./contexts.js";
 
     export let names = [];
     export let defaultName = null;
 
-    const routes = getContext(ROUTES);
+    const router = getContext(ROUTER);
     const location = getContext(LOCATION);
 
     let routeProps = {};
@@ -20,18 +20,15 @@
 
         if (loc.$route) {
             const name = loc.$route.name;
-            let route = routes.find(r => r.name === name);
+            let route = router.find(name);
 
             if (!route && !component && defaultName) {
-                route = routes.find(r => r.name === defaultName);
+                route = router.find(defaultName);
             }
 
-            if (route.component) {
-                route.component().then(c => (component = c));
-            }
+            router.resolveComponent(name, c => (component = c));
         } else if (defaultName) {
-            let route = routes.find(r => r.name === defaultName);
-            route.component().then(c => (component = c));
+            router.resolveComponent(defaultName, c => (component = c));
         }
     });
 

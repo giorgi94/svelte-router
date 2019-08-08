@@ -1,21 +1,21 @@
 <script>
     import { getContext, createEventDispatcher } from "svelte";
-    import { LOCATION, ROUTES } from "./contexts.js";
+    import { LOCATION, ROUTER } from "./contexts.js";
     import { navigate } from "./history.js";
-    import { resolveUrl, shouldNavigate } from "./utils.js";
+    import { shouldNavigate } from "./utils.js";
 
     export let to = "#";
     export let replace = false;
     export let state = {};
     export let getProps = () => ({});
 
-    const routes = getContext(ROUTES);
+    const router = getContext(ROUTER);
     const location = getContext(LOCATION);
     const dispatch = createEventDispatcher();
 
     let href, isPartiallyCurrent, isCurrent, props, attrs;
 
-    $: href = typeof to === "string" ? to : resolveUrl(routes, to);
+    $: href = typeof to === "string" ? to : router.resolveUrl(to);
 
     $: isCurrent = href === $location.pathname;
     $: ariaCurrent = isCurrent ? "page" : undefined;

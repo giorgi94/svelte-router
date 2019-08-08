@@ -1,2 +1,2 @@
 export const LOCATION = {};
-export const ROUTES = [];
+export const ROUTER = {};

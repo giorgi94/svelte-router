@@ -64,7 +64,7 @@ function createHistory(source, options) {
     };
 }
 
-
+// Stores history entries in memory for testing or other platforms like Native
 function createMemorySource(initialPathname = "/") {
     let index = 0;
     const stack = [{
@@ -110,6 +110,8 @@ function createMemorySource(initialPathname = "/") {
     };
 }
 
+// Global history uses window.history as the source if available,
+// otherwise a memory history
 const canUseDOM = Boolean(
     typeof window !== "undefined" &&
     window.document &&

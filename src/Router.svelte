@@ -1,19 +1,19 @@
 <script>
     import { getContext, setContext, onMount } from "svelte";
     import { writable, derived } from "svelte/store";
-    import { LOCATION, ROUTES } from "./contexts.js";
+    import { LOCATION, ROUTER } from "./contexts.js";
     import { globalHistory } from "./history.js";
     import { location, activeRoute } from "./store.js";
 
     export let basepath = "/";
     export let url = null;
-    export let routes = [];
+    export let router = {};
 
-    setContext(ROUTES, routes);
+    setContext(ROUTER, router);
 
     const getRoute = loc => {
         const pathname = loc.pathname;
-        const matched = routes.find(route => route.rule.test(pathname));
+        const matched = router.routes.find(route => route.rule.test(pathname));
 
         if (!matched) {
             return null;

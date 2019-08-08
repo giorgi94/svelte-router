@@ -1,6 +1,6 @@
 {
     "name": "svelte-router",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "description": "A Svelte named routing library",
     "main": "src/index.js",
     "svelte": "src/index.js",
