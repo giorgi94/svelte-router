@@ -75,16 +75,16 @@ export const CreateRouter = ({ routes, converters = [] }) => {
             return this.routes.find(r => r.name === name);
         },
         resolveComponent(name, callback) {
-
             const route = this.find(name);
-            let component = route.component;
 
-            if (!component) {
-                return null;
+            if (!("component" in route)) {
+                return false;
             }
 
-            if ("then" in component) {
-                component().then(callback);
+            let component = route.component();
+
+            if (component instanceof Promise) {
+                component.then(callback);
             } else {
                 callback(component);
             }

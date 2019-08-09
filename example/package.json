@@ -1,0 +1,44 @@
+{
+    "name": "svelte-app",
+    "version": "1.0.0",
+    "devDependencies": {
+        "@babel/core": "^7.4.5",
+        "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+        "@babel/preset-env": "^7.4.5",
+        "@babel/preset-stage-3": "^7.0.0",
+        "babel-eslint": "^10.0.2",
+        "eslint": "^6.0.0",
+        "eslint-config-prettier": "^6.0.0",
+        "eslint-plugin-html": "^6.0.0",
+        "eslint-plugin-prettier": "^3.1.0",
+        "eslint-plugin-svelte3": "^2.0.0",
+        "postcss": "^7.0.17",
+        "prettier": "^1.18.2",
+        "prettier-plugin-svelte": "^0.6.0",
+        "rollup-plugin-babel": "^4.3.3",
+        "rollup-plugin-eslint": "^6.0.0",
+        "rollup-plugin-postcss": "^2.0.3",
+        "rollup-plugin-replace": "^2.2.0",
+        "npm-run-all": "^4.1.5",
+        "rollup": "^1.12.0",
+        "rollup-plugin-commonjs": "^10.0.0",
+        "rollup-plugin-livereload": "^1.0.0",
+        "rollup-plugin-node-resolve": "^5.2.0",
+        "rollup-plugin-svelte": "^5.0.3",
+        "rollup-plugin-terser": "^4.0.4",
+        "stylus": "^0.54.5",
+        "svelte": "^3.0.0",
+        "svelte-router": "git+https://github.com/giorgi94/svelte-router.git"
+    },
+    "dependencies": {
+        "express": "^4.17.1",
+        "sirv-cli": "^0.4.4"
+    },
+    "scripts": {
+        "build": "rollup -c",
+        "autobuild": "rollup -c -w",
+        "dev": "run-p start:dev autobuild",
+        "start": "sirv public --single",
+        "start:dev": "sirv public --single --dev"
+    }
+}
