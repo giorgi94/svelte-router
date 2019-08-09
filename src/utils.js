@@ -83,7 +83,7 @@ export const CreateRouter = ({ routes, converters = [] }) => {
                 return null;
             }
 
-            if (typeof component === "function") {
+            if ("then" in component) {
                 component().then(callback);
             } else {
                 callback(component);

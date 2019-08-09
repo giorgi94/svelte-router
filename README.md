@@ -64,7 +64,7 @@ When router is created we import it in `App.svelte` file and register router com
 ```html
 <!-- App.svelte -->
 <script>
-    import { Router, Link, Route } from "svelte-routing";
+    import { Router, Link, Route } from "svelte-router";
     import { router } from "./router";
 
     export let url = "";

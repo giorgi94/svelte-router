@@ -22,6 +22,10 @@
             const name = loc.$route.name;
             let route = router.find(name);
 
+            if (names.indexOf(name) === -1) {
+                return false;
+            }
+
             if (!route && !component && defaultName) {
                 route = router.find(defaultName);
             }
