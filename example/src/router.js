@@ -1,5 +1,6 @@
 import { CreateRouter } from "svelte-router";
 import HomePage from "./views/Home.svelte";
+import ArticlePage from "./views/Article.svelte";
 
 export const router = CreateRouter({
     routes: [{
@@ -10,7 +11,8 @@ export const router = CreateRouter({
     {
         path: "/article/<int:id>-<str:alias>/",
         name: "article",
-        component: () => import("./views/Article.svelte").then(_ => _.default)
+        component: () => ArticlePage
+        // component: () => import("./views/Article.svelte").then(_ => _.default)
     }
     ]
 });

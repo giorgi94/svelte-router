@@ -10,9 +10,8 @@ module.exports = {
         "svelte3"
     ],
     globals: {
-        Hls: true,
-        ENV: true,
-        BROWSER: true
+        isClientSide: true,
+        ENV: true
     },
     parser: "babel-eslint",
     parserOptions: {
