@@ -1,8 +1,7 @@
 <script>
     import { Router, Link, Route } from "svelte-router";
-    import { router } from "./router";
-    export let name;
 
+    export let router;
     export let url;
 </script>
 
@@ -12,7 +11,7 @@
     }
 </style>
 
-<h1>Hello {name}!</h1>
+<h1>Hello Svelte Router</h1>
 
 <Router {url} {router}>
 

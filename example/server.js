@@ -1,6 +1,6 @@
 const path = require("path");
 const express = require("express");
-const AppRender = require("./public/server/App");
+const { App, router } = require("./public/server/entry-server");
 
 const app = express();
 const port = 3000;
@@ -15,8 +15,8 @@ app.use("/img", express.static("public/img"));
 
 app.get("*", (req, res) => {
 
-    const rendered = AppRender.render({
-        name: "World",
+    const rendered = App.render({
+        router,
         url: req.url
     });
 

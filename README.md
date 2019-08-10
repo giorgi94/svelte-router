@@ -2,8 +2,6 @@
 
 This project was inspired by [svelte-routing](https://github.com/EmilTholin/svelte-routing). It is written to work similar to `vue-router`. Components are written so that it supports lazy-loading, routes need to be named and supports regex patterns.
 
-
-
 ## Getting started
 
 ### Installation
@@ -103,3 +101,7 @@ Components, which are in `Route`, receive data on current route and other props
 <div>Home Page</div>
 
 ```
+
+## Server Side Rendering
+
+This package supports server side rendering. For this you need to create two entries, like in vue ssr. This is needed if you are making code spliting with dynamic imports. On server side dynamic imports not working and we need to make two routers. You can find it in the example.

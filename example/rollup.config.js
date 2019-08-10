@@ -17,7 +17,7 @@ const outputServerBundles = `${outputPath}/server`;
 const ENV = production ? "production" : "development";
 
 const browserConfig = {
-    input: "src/main.js",
+    input: "src/entry-client.js",
     output: {
         sourcemap: !production,
         format: "amd",
@@ -60,7 +60,7 @@ const browserConfig = {
 };
 
 const serverConfig = {
-    input: "src/App.svelte",
+    input: "src/entry-server.js",
     output: {
         sourcemap: false,
         format: "cjs",

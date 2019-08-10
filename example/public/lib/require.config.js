@@ -2,4 +2,4 @@ requirejs.config({
     "baseUrl": "/dist/",
 });
 
-requirejs(["main"]);
+requirejs(["entry-client"]);
