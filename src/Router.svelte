@@ -4,6 +4,7 @@
     import { LOCATION, ROUTER } from "./contexts.js";
     import { globalHistory } from "./history.js";
     import { location, activeRoute } from "./store.js";
+    import { queryString } from "./utils.js";
 
     export let basepath = "/";
     export let url = null;
@@ -13,6 +14,9 @@
 
     const getRoute = loc => {
         const pathname = loc.pathname;
+        const search =
+            loc.search.length > 1 ? queryString.load(loc.search) : {};
+
         const matched = router.routes.find(route => route.rule.test(pathname));
 
         if (!matched) {
@@ -24,6 +28,7 @@
         return {
             name: matched.name,
             params: params ? params.groups || {} : {},
+            query: search,
         };
     };
 
@@ -32,12 +37,17 @@
     const _loc =
         locationContext || url ? { pathname: url } : globalHistory.location;
 
+    console.log(
+        locationContext || url ? { pathname: url } : globalHistory.location
+    );
+
     location.set({ ..._loc, $route: getRoute(_loc) });
 
     if (!locationContext) {
         onMount(() => {
             const unlisten = globalHistory.listen(history => {
                 const loc = history.location;
+                console.log(loc);
                 location.set({ ...loc, $route: getRoute(loc) });
             });
 

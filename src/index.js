@@ -6,4 +6,4 @@ export { default as Link } from "./Link.svelte";
 
 export { navigate } from "./history.js";
 
-export { CreateRouter } from "./utils.js";
+export { CreateRouter, queryString } from "./utils.js";

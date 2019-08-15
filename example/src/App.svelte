@@ -1,8 +1,11 @@
 <script>
     import { Router, Link, Route } from "svelte-router";
+    import { setContext } from "svelte";
 
     export let router;
-    export let url;
+    export let url = null;
+
+    setContext("router", router);
 </script>
 
 <style>
@@ -19,7 +22,7 @@
         <Link to="/">home</Link>
         <Link to="/article/23-ewfjie-34-4vdfv/">Article #23</Link>
         <Link
-            to={{ name: 'article', params: { id: 24, alias: 'sd3vf-324-sdf' } }}>
+            to={{ name: 'article', params: { id: 24, alias: 'sd3vf-324-sdf' }, query: { page: 1 } }}>
             Article #24
         </Link>
     </nav>

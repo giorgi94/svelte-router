@@ -2,7 +2,7 @@
     import { getContext, createEventDispatcher } from "svelte";
     import { LOCATION, ROUTER } from "./contexts.js";
     import { navigate } from "./history.js";
-    import { shouldNavigate } from "./utils.js";
+    import { shouldNavigate, queryString } from "./utils.js";
 
     export let to = "#";
     export let replace = false;
@@ -15,7 +15,20 @@
 
     let href, isPartiallyCurrent, isCurrent, props, attrs;
 
-    $: href = typeof to === "string" ? to : router.resolveUrl(to);
+    const resolveUrl = to => {
+        let qstring = "";
+        let query = to.query;
+
+        if (typeof query === "object" && Object.entries(query).length !== 0) {
+            qstring = queryString.dump(query);
+        }
+
+        const pathname = router.resolveUrl(to);
+
+        return pathname + qstring;
+    };
+
+    $: href = typeof to === "string" ? to : resolveUrl(to);
 
     $: isCurrent = href === $location.pathname;
     $: ariaCurrent = isCurrent ? "page" : undefined;

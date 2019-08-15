@@ -1,3 +1,5 @@
+import { navigate } from "./history.js";
+
 export const shouldNavigate = (event) => {
     return (
         !event.defaultPrevented &&
@@ -13,6 +15,38 @@ const defaultConverters = [{
     type: "int",
     pattern: "\\d+"
 }];
+
+export const queryString = {
+    load(query) {
+        return query.slice(1).split("&").map((e) => e.split("="))
+            .reduce((m, [key, val]) => {
+
+                if (/^\d+$/.test(val)) {
+                    val = parseInt(val);
+                }
+
+                if (key in m) {
+                    if (Array.isArray(m[key])) {
+                        m[key].push(val);
+                    } else {
+                        m[key] = [m[key], val];
+                    }
+                } else {
+                    m[key] = val;
+                }
+                return m;
+            }, {});
+    },
+    dump(query) {
+        return "?" + Object.entries(query).map(([key, val]) => {
+            if (!Array.isArray(val)) {
+                return `${key}=${val}`;
+            } else {
+                return val.map(v => `${key}=${v}`).join("&");
+            }
+        }).join("&");
+    }
+};
 
 export const CreateRouter = ({ routes, converters = [] }) => {
 
@@ -58,18 +92,23 @@ export const CreateRouter = ({ routes, converters = [] }) => {
 
     return {
         routes,
-        resolveUrl({ name, params }) {
+        resolveUrl({ name, params, query }) {
+            let qstring = "";
             const route = this.routes.find(r => r.name === name);
 
             if (!route) {
                 return "";
             }
 
-            if (!params) {
-                return route.resolve();
+            if (typeof query === "object" && Object.entries(query).length !== 0) {
+                qstring = queryString.dump(query);
             }
 
-            return route.resolve(params);
+            if (!params) {
+                return route.resolve() + qstring;
+            }
+
+            return route.resolve(params) + qstring;
         },
         find(name) {
             return this.routes.find(r => r.name === name);
@@ -88,7 +127,9 @@ export const CreateRouter = ({ routes, converters = [] }) => {
             } else {
                 callback(component);
             }
-
+        },
+        navigate(to, { state, replace = false } = {}) {
+            navigate(this.resolveUrl(to), { state, replace });
         }
     };
 };

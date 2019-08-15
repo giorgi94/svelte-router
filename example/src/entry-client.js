@@ -11,7 +11,7 @@ const app = new App({
     target: el,
     props: {
         router,
-        url: window.location.pathname
+        url: null
     }
 });
 
