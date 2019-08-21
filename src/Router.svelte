@@ -8,14 +8,17 @@
 
     export let basepath = "/";
     export let url = null;
+    export let urlqurey = null;
     export let router = {};
 
     setContext(ROUTER, router);
 
     const getRoute = loc => {
         const pathname = loc.pathname;
-        const search =
-            loc.search.length > 1 ? queryString.load(loc.search) : {};
+
+        let search = loc.search || "";
+
+        search = search.length > 1 ? queryString.load(loc.search) : {};
 
         const matched = router.routes.find(route => route.rule.test(pathname));
 
@@ -35,11 +38,9 @@
     const locationContext = getContext(LOCATION);
 
     const _loc =
-        locationContext || url ? { pathname: url } : globalHistory.location;
-
-    console.log(
-        locationContext || url ? { pathname: url } : globalHistory.location
-    );
+        locationContext || url
+            ? { pathname: url, search: urlqurey }
+            : globalHistory.location;
 
     location.set({ ..._loc, $route: getRoute(_loc) });
 
@@ -47,7 +48,6 @@
         onMount(() => {
             const unlisten = globalHistory.listen(history => {
                 const loc = history.location;
-                console.log(loc);
                 location.set({ ...loc, $route: getRoute(loc) });
             });
 
