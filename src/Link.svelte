@@ -31,7 +31,7 @@
     $: href = typeof to === "string" ? to : resolveUrl(to);
 
     $: isCurrent = href === $location.pathname;
-    $: ariaCurrent = isCurrent ? "page" : "";
+    $: ariaCurrent = isCurrent ? "page" : undefined;
 
     $: props = getProps({
         location: $location,
