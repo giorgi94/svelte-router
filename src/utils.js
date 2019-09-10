@@ -14,6 +14,10 @@ const defaultConverters = [{
 }, {
     type: "int",
     pattern: "\\d+"
+},
+{
+    type: "all",
+    pattern: ".*"
 }];
 
 export const queryString = {
