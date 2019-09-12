@@ -13,10 +13,15 @@
 
     let component = null;
 
+    let to = {};
+    let from = {};
+
     let unlisten = location.subscribe(loc => {
         if (!loc) return;
 
+        from = activeRoute;
         activeRoute = loc.$route || {};
+        to = activeRoute;
 
         if (loc.$route) {
             const name = loc.$route.name;
@@ -30,9 +35,14 @@
                 route = router.find(defaultName);
             }
 
-            router.resolveComponent(name, c => (component = c));
+            router.resolveComponent(from, to, name, c => (component = c));
         } else if (defaultName) {
-            router.resolveComponent(defaultName, c => (component = c));
+            router.resolveComponent(
+                from,
+                to,
+                defaultName,
+                c => (component = c)
+            );
         }
     });
 

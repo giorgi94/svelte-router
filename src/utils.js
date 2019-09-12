@@ -117,20 +117,31 @@ export const CreateRouter = ({ routes, converters = [] }) => {
         find(name) {
             return this.routes.find(r => r.name === name);
         },
-        resolveComponent(name, callback) {
+        resolveComponent(from, to, name, callback) {
             const route = this.find(name);
 
             if (!("component" in route)) {
                 return false;
             }
 
-            let component = route.component();
+            const next = () => {
+                let component = route.component();
+                if (component instanceof Promise) {
+                    component.then(callback);
+                } else {
+                    callback(component);
+                }
+                this.afterResolve(from, to);
+            };
 
-            if (component instanceof Promise) {
-                component.then(callback);
-            } else {
-                callback(component);
-            }
+            this.beforeResolve(from, to, next);
+
+        },
+        beforeResolve(from, to, next) {
+            next();
+        },
+        afterResolve(from, to) {
+
         },
         navigate(to, { state, replace = false } = {}) {
             navigate(this.resolveUrl(to), { state, replace });
